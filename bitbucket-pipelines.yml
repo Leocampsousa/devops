@@ -1,0 +1,116 @@
+pipelines:
+ branches:
+   master:
+   - parallel:
+     - step:
+         name: Atualiza imagem azul-cargo
+         services:
+           - docker
+         caches:
+           - docker
+         script:
+           - docker images
+           - cd service-azul-cargo
+           - docker build -t service-azul-cargo . 
+           - pipe: atlassian/aws-ecr-push-image:1.4.2
+             variables:
+               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+               IMAGE_NAME: service-azul-cargo
+           - cd ../
+           - docker images
+     - step:
+         name: Atualiza imagem service-correios
+         services:
+           - docker
+         caches:
+           - docker
+         script:
+           - docker images
+           - cd service-correios
+           - docker build -t service-correios . 
+           - pipe: atlassian/aws-ecr-push-image:1.4.2
+             variables:
+               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+               IMAGE_NAME: service-correios
+           - cd ../
+           - docker images
+     - step:
+         name: Atualiza imagem service-hub
+         services:
+           - docker
+         caches:
+           - docker
+         script:
+           - docker images
+           - cd service-hub
+           - docker build -t service-hub . 
+           - pipe: atlassian/aws-ecr-push-image:1.4.2
+             variables:
+               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+               IMAGE_NAME: service-hub
+           - cd ../
+           - docker images
+     - step:
+         name: Atualiza imagem service-jadlog
+         services:
+           - docker
+         caches:
+           - docker
+         script:
+           - docker images
+           - cd service-jadlog
+           - docker build -t service-jadlog . 
+           - pipe: atlassian/aws-ecr-push-image:1.4.2
+             variables:
+               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+               IMAGE_NAME: service-jadlog
+           - cd ../
+           - docker images
+   develop:
+   - parallel:
+     - step:
+         name: Atualiza imagem azul-cargo
+         services:
+           - docker
+         caches:
+           - docker
+         script:
+           - docker images
+           - cd service-azul-cargo
+           - docker build -t service-azul-cargo:$BITBUCKET_BRANCH . 
+           - pipe: atlassian/aws-ecr-push-image:1.4.2
+             variables:
+               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+               IMAGE_NAME: service-azul-cargo:$BITBUCKET_BRANCH
+               TAGS: $BITBUCKET_BRANCH
+           - cd ../
+           - docker images
+     - step:
+         name: Atualiza imagem service-correios
+         services:
+           - docker
+         caches:
+           - docker
+         script:
+           - docker images
+           - cd service-correios
+           - docker build -t service-correios:$BITBUCKET_BRANCH . 
+           - pipe: atlassian/aws-ecr-push-image:1.2.1
+             variables:
+               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+               IMAGE_NAME: service-correios:$BITBUCKET_BRANCH
+               TAGS: $BITBUCKET_BRANCH
+           - cd ../
+           - docker images
