@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Service HUB
+echo "HUB"
+cp -R src/carriers-hub .
+mv carriers-hub service-hub
+cp .env.hub service-hub/.env
+cd service-hub
+yarn && yarn run build
+cd ../
+
+# Service Correios
+echo "Correios"
+cp -R src/carriers-calculate .
+mv carriers-calculate service-correios
+cp .env.correios service-correios/.env
+cd service-correios
+yarn && yarn run build
+cd ../
+
+# Service Jadlog
+echo "Jadlog"
+cp -R src/carriers-calculate .
+mv carriers-calculate service-jadlog
+cp .env.jadlog service-jadlog/.env
+cd service-jadlog
+yarn && yarn run build
+cd ../
+
+# Service Azul Cargo
+echo "Azul Cargo"
+cp -R src/carriers-calculate .
+mv carriers-calculate service-azul-cargo
+cp .env.azul-cargo service-azul-cargo/.env
+cd service-azul-cargo
+yarn && yarn run build
+cd ../
