@@ -7,4 +7,4 @@ COPY . .
 
 RUN yarn lint && yarn run build && yarn add lockfile 
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
