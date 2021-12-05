@@ -5,6 +5,7 @@ echo "HUB"
 cp -R src/carriers-hub .
 mv carriers-hub service-hub
 cp .env.hub service-hub/.env
+cp Dockerfile service-hub/
 cd service-hub
 yarn && yarn run build
 cd ../
@@ -14,6 +15,7 @@ echo "Correios"
 cp -R src/carriers-calculate .
 mv carriers-calculate service-correios
 cp .env.correios service-correios/.env
+cp Dockerfile service-correios/
 cd service-correios
 yarn && yarn run build
 cd ../
@@ -23,6 +25,7 @@ echo "Jadlog"
 cp -R src/carriers-calculate .
 mv carriers-calculate service-jadlog
 cp .env.jadlog service-jadlog/.env
+cp Dockerfile service-jadlog/
 cd service-jadlog
 yarn && yarn run build
 cd ../
@@ -32,6 +35,7 @@ echo "Azul Cargo"
 cp -R src/carriers-calculate .
 mv carriers-calculate service-azul-cargo
 cp .env.azul-cargo service-azul-cargo/.env
+cp Dockerfile service-azul-cargo/
 cd service-azul-cargo
 yarn && yarn run build
 cd ../
