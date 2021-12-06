@@ -16,6 +16,7 @@ pipelines:
            - cp Dockerfile service-azul-cargo/
            - docker images
            - cd service-azul-cargo
+           - sed 's/3000/3003/' Dockerfile
            - docker build -t service-azul-cargo . 
            - pipe: atlassian/aws-ecr-push-image:1.4.2
              variables:
@@ -39,6 +40,7 @@ pipelines:
            - cp Dockerfile service-correios/     
            - docker images
            - cd service-correios
+           - sed 's/3000/3003/' Dockerfile
            - docker build -t service-correios . 
            - pipe: atlassian/aws-ecr-push-image:1.4.2
              variables:
@@ -85,6 +87,7 @@ pipelines:
            - cp Dockerfile service-jadlog/
            - docker images
            - cd service-jadlog
+           - sed 's/3000/3002/' Dockerfile
            - docker build -t service-jadlog . 
            - pipe: atlassian/aws-ecr-push-image:1.4.2
              variables:
