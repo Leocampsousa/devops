@@ -3,12 +3,17 @@ pipelines:
    master:
    - parallel:
      - step:
-         name: Atualiza imagem azul-cargo
+         name: Atualiza imagem azul-cargo 
          services:
            - docker
          caches:
            - docker
          script:
+           - echo "Azul Cargo"
+           - cp -R src/carriers-calculate .
+           - mv carriers-calculate service-azul-cargo
+           - cp .env.azul-cargo service-azul-cargo/.env
+           - cp Dockerfile service-azul-cargo/
            - docker images
            - cd service-azul-cargo
            - docker build -t service-azul-cargo . 
@@ -27,6 +32,11 @@ pipelines:
          caches:
            - docker
          script:
+           - echo "Correios"
+           - cp -R src/carriers-calculate .
+           - mv carriers-calculate service-correios
+           - cp .env.correios service-correios/.env
+           - cp Dockerfile service-correios/     
            - docker images
            - cd service-correios
            - docker build -t service-correios . 
@@ -45,6 +55,11 @@ pipelines:
          caches:
            - docker
          script:
+           - echo "Correios"
+           - cp -R src/carriers-calculate .
+           - mv carriers-calculate service-hub
+           - cp .env.correios service-hub/.env
+           - cp Dockerfile service-hub/
            - docker images
            - cd service-hub
            - docker build -t service-hub . 
@@ -63,6 +78,11 @@ pipelines:
          caches:
            - docker
          script:
+           - echo "Correios"
+           - cp -R src/carriers-calculate .
+           - mv carriers-calculate service-jadlog
+           - cp .env.correios service-jadlog/.env
+           - cp Dockerfile service-jadlog/
            - docker images
            - cd service-jadlog
            - docker build -t service-jadlog . 
@@ -83,6 +103,11 @@ pipelines:
          caches:
            - docker
          script:
+           - echo "Azul Cargo"
+           - cp -R src/carriers-calculate .
+           - mv carriers-calculate service-azul-cargo
+           - cp .env.azul-cargo service-azul-cargo/.env
+           - cp Dockerfile service-azul-cargo/
            - docker images
            - cd service-azul-cargo
            - docker build -t service-azul-cargo:$BITBUCKET_BRANCH . 
@@ -102,6 +127,11 @@ pipelines:
          caches:
            - docker
          script:
+           - echo "Correios"
+           - cp -R src/carriers-calculate .
+           - mv carriers-calculate service-correios
+           - cp .env.correios service-correios/.env
+           - cp Dockerfile service-correios/
            - docker images
            - cd service-correios
            - docker build -t service-correios:$BITBUCKET_BRANCH . 
